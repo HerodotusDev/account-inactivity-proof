@@ -1,0 +1,44 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model InactivityProof {
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
+    account String
+
+    sinceBlockNumber Int
+    untilBlockNumber Int
+
+    sinceNonce String?
+    untilNonce String?
+    finalised  Boolean
+
+    proofTasks ProofTask[]
+}
+
+model ProofTask {
+    taskId           String       @id @map("_id")
+    taskStatus       String
+    originChain      String
+    destinationChain String
+    blockNumber      Int
+    type             String
+    scheduledAt      Int
+    account          String
+    token            String       @unique
+    nonce            String?
+    sinceOrUntil     SinceOrUntil
+
+    InactivityProof   InactivityProof @relation(fields: [inactivityProofId], references: [id])
+    inactivityProofId String          @db.ObjectId
+}
+
+enum SinceOrUntil {
+    since
+    until
+}

@@ -1,0 +1,16 @@
+name: CRONs
+on:
+  schedule:
+    - cron: "*/2 * * * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: /api/cron/finalise-inactivity-proofs
+        run: |
+          curl --request POST \
+          --url 'https://example.com/api/cron/${{ secrets.CRONS_KEY }}/finalise-inactivity-proofs'
+      - name: /api/cron/update-tasks
+        run: |
+          curl --request POST \
+          --url 'https://example.com/api/cron/${{ secrets.CRONS_KEY }}/update-tasks'
