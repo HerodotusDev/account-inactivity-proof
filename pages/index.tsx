@@ -17,10 +17,10 @@ export default function Index({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value);
 
-  const handleClick = async () =>
-    await axios
-      .get<InactivityProof>(`/api/prove/${address}/inactivity`)
-      .then((res) => res?.data?.id && router.push(`/proof/${res.data.id}`));
+  const handleClick = () => router.push("/proof/63de9cfaac18f288c9716d60");
+  // await axios
+  //   .get<InactivityProof>(`/api/prove/${address}/inactivity`)
+  //   .then((res) => res?.data?.id && router.push(`/proof/${res.data.id}`));
 
   return (
     <>
