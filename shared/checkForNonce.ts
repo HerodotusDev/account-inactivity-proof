@@ -20,12 +20,13 @@ export const checkForNonce = async (
     data: { taskStatus: TaskStatus[taskStatus] },
   };
 
-  if (taskStatus in ReadyTaskStatuses) {
+  if (ReadyTaskStatuses.includes(taskStatus as TaskStatus)) {
     update.data.nonce = await getInfoFromFactsRegistry(
       account,
       blockNumber
     ).then((bn) => bn.toString());
   }
+  console.log("update", update);
 
   return update;
 };
